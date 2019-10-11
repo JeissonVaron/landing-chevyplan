@@ -1,0 +1,112 @@
+<div class="register-form">
+    <div class="titles">
+        <p class="title-text">{{title}}</p>
+        <p class="subTitle-text">{{subTitle}}</p>
+    </div>
+    <form [formGroup]="ngForm" novalidate>
+        <div class="form-group">
+            <input class="form-control" formControlName="fullName" placeholder="Nombre completo" [ngClass]="{'error-input': ngForm.controls['fullName'].invalid && (ngForm.controls['fullName'].dirty || ngForm.controls['fullName'].touched)}">
+            <div *ngIf="ngForm.controls['fullName'].invalid && (ngForm.controls['fullName'].dirty || ngForm.controls['fullName'].touched)">
+                <span *ngIf="ngForm.controls['fullName'].errors.required" class="error-message">
+                    Campo Requerido.
+                </span>
+                <span *ngIf="ngForm.controls['fullName'].errors.pattern" class="error-message">
+                    El Nombre Completo no debe contener números ni caracteres especiales.
+                </span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-6">
+                <select class="form-control" formControlName="documentType" [ngClass]="{'error-input': ngForm.controls['documentType'].invalid && (ngForm.controls['documentType'].dirty || ngForm.controls['documentType'].touched)}">
+                    <option value="" selected disabled>Tipo de documento</option>
+                    <option value="CC">CC</option>
+                    <option value="CD">CD</option>
+                    <option value="CE">CE</option>
+                    <option value="NIT">NIT</option>
+                    <option value="NUI">NUI</option>
+                    <option value="PAS">PAS</option>
+                    <option value="RCN">RCN</option>
+                    <option value="TI">TI</option>
+                    <option value="PE">PE</option>
+                </select>
+                <div *ngIf="ngForm.controls['documentType'].invalid && (ngForm.controls['documentType'].dirty || ngForm.controls['documentType'].touched)">
+                    <span *ngIf="ngForm.controls['documentType'].errors.required" class="error-message">
+                        Campo Requerido.
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                    <input class="form-control" formControlName="document" placeholder="Numero de documento" [ngClass]="{'error-input': ngForm.controls['document'].invalid && (ngForm.controls['document'].dirty || ngForm.controls['document'].touched)}">
+                    <div *ngIf="ngForm.controls['document'].invalid && (ngForm.controls['document'].dirty || ngForm.controls['document'].touched)">
+                        <span *ngIf="ngForm.controls['document'].errors.required" class="error-message">
+                            Campo Requerido. 
+                        </span>
+                        <span *ngIf="ngForm.controls['document'].errors.minlength" class="error-message">
+                            Debe ser mayor a 6 dígitos. 
+                        </span>
+                        <span *ngIf="ngForm.controls['document'].errors.maxlength" class="error-message">
+                            No puede ser mayor a 10 dígitos. 
+                        </span>
+                        <span *ngIf="ngForm.controls['document'].errors.pattern" class="error-message">
+                            Solo debe ser numérico. 
+                        </span>
+                    </div>
+                </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-6">
+                <select class="form-control" formControlName="country" [ngClass]="{'error-input': ngForm.controls['country'].invalid && (ngForm.controls['country'].dirty || ngForm.controls['country'].touched)}">
+                    <option value="" selected disabled>Pais</option>
+                    <option *ngFor="let country of countriesOptions" value="{{ country.numericCode }}">{{ country.name }}</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                </select>
+                <div *ngIf="ngForm.controls['country'].invalid && (ngForm.controls['country'].dirty || ngForm.controls['country'].touched)">
+                    <span *ngIf="ngForm.controls['country'].errors.required" class="error-message">
+                        Campo Requerido.
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <input class="form-control" formControlName="phoneNumber" placeholder="Celular" [ngClass]="{'error-input': ngForm.controls['phoneNumber'].invalid && (ngForm.controls['phoneNumber'].dirty || ngForm.controls['phoneNumber'].touched)}">
+                <div *ngIf="ngForm.controls['phoneNumber'].invalid && (ngForm.controls['phoneNumber'].dirty || ngForm.controls['phoneNumber'].touched)">
+                    <span *ngIf="ngForm.controls['phoneNumber'].errors.required" class="error-message">
+                        Campo Requerido.
+                    </span>
+                    <span *ngIf="ngForm.controls['phoneNumber'].errors.minlength" class="error-message">
+                        Debe ser de 10 dígitos. 
+                    </span>
+                    <span *ngIf="ngForm.controls['phoneNumber'].errors.maxlength" class="error-message">
+                        Debe ser de 10 dígitos. 
+                    </span>
+                    <span *ngIf="ngForm.controls['phoneNumber'].errors.pattern" class="error-message">
+                        Solo debe ser numérico. 
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input class="form-control" formControlName="email" placeholder="Correo Electrónico" [ngClass]="{'error-input': ngForm.controls['email'].invalid && (ngForm.controls['email'].dirty || ngForm.controls['email'].touched)}">
+            <div *ngIf="ngForm.controls['email'].invalid && (ngForm.controls['email'].dirty || ngForm.controls['email'].touched)">
+                <span *ngIf="ngForm.controls['email'].errors.required" class="error-message">
+                    Campo Requerido.
+                </span>
+                <span *ngIf="ngForm.controls['email'].errors.email" class="error-message">
+                    Debe ser un correo electrónico valido
+                </span>
+            </div>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="accept" formControlName="accept">
+            <label class="form-check-label" for="accept">Leí y acepto condiciones de la <a target="_blanck" href="https://www.termsandcondiitionssample.com/">política de privacidad</a></label>
+        </div>
+        <div class="text-center pt-3">
+            <button type="submit" (click)="onSubmit()" class="btn btn-primary" [ngClass]="{'disabled': ngForm.status == 'INVALID'}">ENVIAR</button>
+        </div>
+    </form>
+    <!-- <p>Form value: {{ ngForm.value | json }}</p>
+    <p>Form status: {{ ngForm.status | json }}</p> -->
+</div>

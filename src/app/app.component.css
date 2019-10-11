@@ -1,0 +1,25 @@
+.title-text, .body-text {
+    color: #E1E1E1;
+    padding-left: 50px;
+}
+
+.title-text{
+    font-family: Arial Bold italic;
+    font-size: 36px;
+}
+
+.body-text{
+    font-family: Arial;
+    font-size: 16px;
+}
+.content-text, .content-form{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.content-form{
+    left: 50%;
+}
